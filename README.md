@@ -35,6 +35,8 @@ The resulting huggingface spaces can be found at:
 
 ### 2. Titanic
 
+![Titanic sinking](https://raw.githubusercontent.com/backgroundhumeur/id2223_labs/main/src/titanic/assets/titanic_0.jpg)
+
 There are two applications for the Titanic dataset : one predicts if a passenger of
 the Titanic would have survived based on some parameters given through an
 interactive GUI, and the other is a monitor app that runs daily predictions on new
@@ -43,8 +45,13 @@ along with the daily prediction.
 
 For the first app, you can choose many parameters and the prediction is
 displayed as an image that either shows the Titanic sinking if the passenger
-would have died, and the other shows Géricault's [*Le Radeau de la Méduse*](https://en.wikipedia.org/wiki/The_Raft_of_the_Medusa) if he would
-have survived.
+would have died, or Géricault's [*Le Radeau de la Méduse*](https://en.wikipedia.org/wiki/The_Raft_of_the_Medusa) if he would have survived.
+
+For the second app, the newly synthesised passengers are generated using the
+empirical data of the existing passengers coupled with uniform rolls based on
+the probabilites associated with the different parameters given that they are
+a survivor or not. They are then fed daily to an already running model, as
+a form of monitoring.
 
 The model used for the predictions is a binary classificator that uses KNN with
 2 neighbours.
