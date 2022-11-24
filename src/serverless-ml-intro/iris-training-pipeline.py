@@ -7,7 +7,7 @@ if LOCAL == False:
    stub = modal.Stub()
    image = modal.Image.debian_slim().apt_install(["libgomp1"]).pip_install(["hopsworks", "seaborn", "joblib", "scikit-learn"])
 
-   @stub.function(image=image, schedule=modal.Period(days=1), secret=modal.Secret.from_name("HOPSWORKS_API_KEY"))
+   @stub.function(image=image, schedule=modal.Period(days=1), secret=modal.Secret.from_name("my-custom-key"))
    def f():
        g()
 

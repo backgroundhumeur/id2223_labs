@@ -17,12 +17,14 @@ def g():
 
     project = hopsworks.login()
     fs = project.get_feature_store()
-    titanic_df = pd.read_csv("titanice.csv")
+    titanic_df = pd.read_csv("https://raw.githubusercontent.com/backgroundhumeur/id2223_labs/main/src/titanic/data/titanic.csv")
     #drop irrelevant columns that have either too few values or too many unique values
     titanic_df = titanic_df[['Sex','Age','Pclass','Fare','Parch','SibSp','Embarked', 'Survived']]
     #fill NAs with default values
-    def_values = {'Age': titanic_df['Age'].mean(), 'Embarked': titanic_df['Embarked'].median()}
-    titanic_df = titanic_df.fillna(values=def_values)
+    def_values = {'Age': titanic_df['Age'].mean(), 'Embarked': titanic_df['Embarked'].value_counts().idxmax()}
+    titanic_df = titanic_df.fillna(value=def_values)
+    #replace all str values with numeric values for the training
+    titanic_df = titanic_df.replace({'male':0,'female':1,'S':0,'C':1,'Q':2})
     titanic_fg = fs.get_or_create_feature_group(
         name="titanic_modal",
         version=1,

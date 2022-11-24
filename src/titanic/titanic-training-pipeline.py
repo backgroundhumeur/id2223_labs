@@ -40,7 +40,7 @@ def g():
         feature_view = fs.create_feature_view(name="titanic_modal",
                                           version=1,
                                           description="Read from Titanic Passengers Dataset",
-                                          labels=["Survived"],
+                                          labels=["survived"],
                                           query=query)
 
     # You can read training data, randomly split into train/test sets of features (X) and labels (y)
