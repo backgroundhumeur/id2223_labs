@@ -19,8 +19,8 @@ online GUI, which can be found at the urls detailed below.
 There are two applications for the Iris dataset : one predicts the variety of
 the flower based on some parameters given through an interactive GUI, and the
 other is a monitor app that runs daily predictions on new synthesised samples
-and displays historical records of how well the model is doing along with the
-daily prediction.
+and displays on an online Dashboard historical records of how well the model is
+doing(accuracy & confusion matrix) along with the daily prediction.
 
 The model used for the predictions is a binary classificator that uses KNN with
 2 neighbours.
@@ -40,8 +40,7 @@ The resulting huggingface spaces can be found at:
 There are two applications for the Titanic dataset : one predicts if a passenger of
 the Titanic would have survived based on some parameters given through an
 interactive GUI, and the other is a monitor app that runs daily predictions on new
-synthesised samples and displays historical records of how well the model is doing
-along with the daily prediction.
+synthesised samples and displays on an online Dashboard historical records of how well the model is doing(accuracy & confusion matrix) along with the daily prediction.
 
 For the first app, you can choose many parameters and the prediction is
 displayed as an image that either shows the Titanic sinking if the passenger
