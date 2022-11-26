@@ -9,8 +9,8 @@ dataset_api = project.get_dataset_api()
 
 dataset_api.download("Resources/images/latest_survival.jpg")
 dataset_api.download("Resources/images/actual_survival.jpg")
-dataset_api.download("Resources/images/df_recent.png")
-dataset_api.download("Resources/images/confusion_matrix.png")
+dataset_api.download("Resources/images/tit_df_recent.png")
+dataset_api.download("Resources/images/tit_confusion_matrix.png")
 
 with gr.Blocks() as demo:
     with gr.Row():
@@ -23,9 +23,9 @@ with gr.Blocks() as demo:
     with gr.Row():
       with gr.Column():
           gr.Label("Recent Prediction History")
-          input_img = gr.Image("df_recent.png", elem_id="recent-predictions")
+          input_img = gr.Image("tit_df_recent.png", elem_id="recent-predictions")
       with gr.Column():          
           gr.Label("Confusion Maxtrix with Historical Prediction Performance")
-          input_img = gr.Image("confusion_matrix.png", elem_id="confusion-matrix")        
+          input_img = gr.Image("tit_confusion_matrix.png", elem_id="confusion-matrix")        
 
 demo.launch()

@@ -76,8 +76,8 @@ def g():
 
 
     df_recent = history_df.tail(5)
-    dfi.export(df_recent, './df_recent.png', table_conversion = 'matplotlib')
-    dataset_api.upload("./df_recent.png", "Resources/images", overwrite=True)
+    dfi.export(df_recent, './tit_df_recent.png', table_conversion = 'matplotlib')
+    dataset_api.upload("./tit_df_recent.png", "Resources/images", overwrite=True)
     
     predictions = history_df[['prediction']]
     labels = history_df[['label']]
@@ -91,8 +91,8 @@ def g():
     
         cm = sns.heatmap(df_cm, annot=True)
         fig = cm.get_figure()
-        fig.savefig("./confusion_matrix.png")
-        dataset_api.upload("./confusion_matrix.png", "Resources/images", overwrite=True)
+        fig.savefig("./tit_confusion_matrix.png")
+        dataset_api.upload("./tit_confusion_matrix.png", "Resources/images", overwrite=True)
     else:
         print("You need 2 different passenger survival predictions to create the confusion matrix.")
         print("Run the batch inference pipeline more times until you get 2 different passenger survival predictions")
