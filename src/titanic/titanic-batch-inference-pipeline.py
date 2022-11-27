@@ -1,12 +1,12 @@
 import os
 import modal
     
-LOCAL=True
+LOCAL=False
 
 if LOCAL == False:
    stub = modal.Stub()
-   hopsworks_image = modal.Image.debian_slim().pip_install(["hopsworks","joblib","seaborn","sklearn","dataframe-image"])
-   @stub.function(image=hopsworks_image, schedule=modal.Period(days=1), secret=modal.Secret.from_name("my-custom-key"))
+   hopsworks_image = modal.Image.debian_slim().pip_install(["hopsworks","joblib","seaborn","sklearn","dataframe-image","scikit-learn"])
+   @stub.function(image=hopsworks_image, schedule=modal.Period(hours=6), secret=modal.Secret.from_name("my-custom-secret"))
    def f():
        g()
 
@@ -86,8 +86,8 @@ def g():
     if predictions.value_counts().count() == 2:
         results = confusion_matrix(labels, predictions)
     
-        df_cm = pd.DataFrame(results, ['True Survivor', 'True Deceased'],
-                             ['Pred Survivor', 'Pred Deceased'])
+        df_cm = pd.DataFrame(results, ['True Deceased', 'True Survivor'],
+                             ['Pred Deceased', 'Pred Survivor'])
     
         cm = sns.heatmap(df_cm, annot=True)
         fig = cm.get_figure()

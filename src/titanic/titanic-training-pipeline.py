@@ -1,13 +1,13 @@
 import os
 import modal
 
-LOCAL=True
+LOCAL=False
 
 if LOCAL == False:
    stub = modal.Stub()
-   image = modal.Image.debian_slim().apt_install(["libgomp1"]).pip_install(["hopsworks", "seaborn", "joblib", "scikit-learn"])
+   image = modal.Image.debian_slim().apt_install(["libgomp1"]).pip_install(["hopsworks", "seaborn", "joblib", "scikit-learn", "xgboost"])
 
-   @stub.function(image=image, schedule=modal.Period(days=1), secret=modal.Secret.from_name("my-custom-key"))
+   @stub.function(image=image, schedule=modal.Period(days=1), secret=modal.Secret.from_name("my-custom-secret"))
    def f():
        g()
 
@@ -16,6 +16,7 @@ def g():
     import hopsworks
     import pandas as pd
     from sklearn.neighbors import KNeighborsClassifier
+    import xgboost as xgb
     from sklearn.metrics import accuracy_score
     from sklearn.metrics import confusion_matrix
     from sklearn.metrics import classification_report
@@ -47,7 +48,8 @@ def g():
     X_train, X_test, y_train, y_test = feature_view.train_test_split(0.2)
 
     # Train our model with the Scikit-learn K-nearest-neighbors algorithm using our features (X_train) and labels (y_train)
-    model = KNeighborsClassifier(n_neighbors=2)
+    # model = KNeighborsClassifier(n_neighbors=2)
+    model = xgb.XGBClassifier()
     model.fit(X_train, y_train.values.ravel())
 
     # Evaluate model performance using the features from the test set (X_test)
@@ -58,8 +60,8 @@ def g():
     results = confusion_matrix(y_test, y_pred)
 
     # Create the confusion matrix as a figure, we will later store it as a PNG image file
-    df_cm = pd.DataFrame(results, ['True Survivor', 'True Deceased'],
-                         ['Pred Survivor', 'Pred Deceased'])
+    df_cm = pd.DataFrame(results, ['True Deceased', 'True Survivor'],
+                         ['Pred Deceased', 'Pred Survivor'])
     cm = sns.heatmap(df_cm, annot=True)
     fig = cm.get_figure()
 

@@ -2,13 +2,13 @@ import os
 import modal
 
 BACKFILL=False
-LOCAL=True
+LOCAL=False
 
 if LOCAL == False:
    stub = modal.Stub()
    image = modal.Image.debian_slim().pip_install(["hopsworks","joblib","seaborn","sklearn","dataframe-image"]) 
 
-   @stub.function(image=image, schedule=modal.Period(days=1), secret=modal.Secret.from_name("my-custom-key"))
+   @stub.function(image=image, schedule=modal.Period(hours=6), secret=modal.Secret.from_name("my-custom-secret"))
    def f():
        g()
 
@@ -138,7 +138,7 @@ def g():
     fs = project.get_feature_store()
 
     if BACKFILL == True:
-        titanic_df = pd.read_csv("https://repo.hops.works/master/hopsworks-tutorials/data/iris.csv")
+        titanic_df = get_random_passenger()
     else:
         titanic_df = get_random_passenger()
 
