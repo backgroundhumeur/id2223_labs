@@ -52,8 +52,11 @@ the probabilites associated with the different parameters given that they are
 a survivor or not. They are then fed daily to an already running model, as
 a form of monitoring.
 
-The model used for the predictions is a binary classificator that uses KNN with
-2 neighbours.
+The model used for the predictions is a binary classificator that uses XGBoost with
+the standard hyperparameters.
+
+We can see the perfomance on the test set here : 
+![XGBoost confusion matrix](https://raw.githubusercontent.com/backgroundhumeur/id2223_labs/main/src/titanic/titanic_model/confusion_matrix.png)
 
 The resulting huggingface spaces can be found at:
 
