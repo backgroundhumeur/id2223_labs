@@ -1,5 +1,89 @@
 # id2223_labs
 
+## Lab2
+
+The goal of the lab was to allow users to translate Swedish videos into English
+text through the use of a serverless machine learning pipeline.
+
+In the lab2 folder, you can find the code for two notebooks that were used to fine-tune a model of OpenAI's whisper model(small) to transcribe and translate
+spoken Swedish to English.
+
+Additionnally, you can test the model on Youtube videos URLs through a huggingface spaces gradio app at the
+following url.
+
+### Explanation of the pipeline
+
+The original notebook was split into two notebooks : one concerned with the
+feature engineering that can be run exclusively with a CPU that takes around
+~40mins. The other is concerned with the training of the feature data and the
+frequent use of checkpoints uploaded onto a huggingface model repo to avoid
+Collab interfering with prolonged use of its GPUs.
+
+The feature engineering pipeline notebook downloads and cleans the data
+downloaded from huggingface's public repos to then upload them onto a google
+drive. These feature data can then be recovered either through access to the
+drive by mounting it, or by downloading it through !curl commands.
+
+The choice of GDrive was done out of practicallity, even if that entailed a need
+to reduce the test set by subsampling it from 5k to 3k in order to comply with the 15gb limit.
+This was reasonable though, as it matched the size of the training set to a 80/20 ratio.
+
+The training pipeline notebook was built in order to minimize the time spent not
+using the GPU. Using a separate feature pipeline, we were able to drive down the
+overhead time to around ~20mins for it to download the necessary feature dataset
+used for the training.
+
+We then make use of the training's parameters in order to force a push for every
+checkpoints(1 every 1000 steps) into the model's repo to retrain from the
+checkpoint in order of a Collab forceful disconnect.
+
+### Possible improvements of the model
+
+* Model-centric approach
+
+The first hyperparameter that could be changed is the maximum step count. We
+didn't specify the maximum number of epochs but only trained up to 4000 steps
+which resulted in 5.17/6 epochs, or in other words, pass over the whole training
+set. It is clear that as we increase training time, the model would likely
+improve though to more and more marginal decrease in loss and WER. This wasn't
+tried out of concern of the already very long training time(~10h).
+
+The AdamW learning rate of the training could also be lowered/increased for a possible boost in
+WER depending on whether the training process has too much variance/overfits too
+much the training data for a better test error.
+
+One could also add weight decay for the AdamW optimizer in order to have the
+model better generalise, but this would likely require longer training as well.
+
+The long training time could be reduced further by making use of bigger training
+and test batch sizes, but unfortunately the RAM of the GPUs collab provided
+couldn't allow for bigger batche sizes.
+
+The fp16 provides a nice boost in perfomances, but we didn't try the different
+optimizers level that could possibly increasing perfomances further using
+fp16_opt_level.
+
+The final optimization that can be used and that was implemented is to reduce the test set size so that less time is spent at every evaluation. This is dangerous though as we can't reduce its size too much for fear of underestimating the error on unseen data. But a 80/20 ratio seemed like a good compromise, and this allowed us to drive the total evaluation time down 1h(=15min*4).
+
+* Data-centric approach
+
+The most obvious data-centric approach to improve the model is to have a greater
+training set. Initially we worked on the problem by reducing the size of the
+training instead of the test set, and this lead to worse WER rates. So it is
+clear that adding more data from other available data sources would be a good
+way to improve our model.
+
+Unfortunately, it is both difficult to find and make usable more potential
+training data, since there are no seemingly easy sources online for Swedish
+audio. One could investigate government agencies especially of the European
+Union to maybe find good quality recordings usable for training.
+
+The second problem is that the training data needs to be saved on cloud systems
+and the current data already went over 15gb so any more would require to use
+either extra Google Drives or Hopsworks storage space, but this would increase
+download times when training and overall be more cumbersome than it already is.
+
+---
 ## Lab1
 
 This is the code for 4 serverless machine learning applications that use
