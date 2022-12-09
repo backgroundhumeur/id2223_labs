@@ -8,8 +8,13 @@ text through the use of a serverless machine learning pipeline.
 In the lab2 folder, you can find the code for two notebooks that were used to fine-tune a model of OpenAI's whisper model(small) to transcribe and translate
 spoken Swedish to English.
 
-Additionnally, you can test the model on Youtube videos URLs through a huggingface spaces gradio app at the
-following url.
+Additionnally, you can test the model on Youtube videos URLs through a huggingface 
+spaces gradio app at [the following url](https://huggingface.co/spaces/humeur/Swedish-Whisper-from-Youtube).
+
+Since the gradio app is run on the basic CPU provided by huggingface, it takes
+a very long time to run one inference of the model even for small inputs(around
+10mins). We can recommend some youtube videos to try the app with like [this
+recent news report](https://www.youtube.com/watch?v=34QNxHTOsQU) or [an even shorter one](https://www.youtube.com/watch?v=AzlipxrzMe4).
 
 ### Explanation of the pipeline
 
