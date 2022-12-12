@@ -4,16 +4,17 @@ from transformers import pipeline
 
 class GradioInference():
   def __init__(self):
-    self.model = pipeline(model="humeur/lab2_id2223")
+    self.transcribe_model = pipeline(model='humeur/lab2_id2223')
+    self.translate_model = pipeline("translation_SV_to_EN", model="Helsinki-NLP/opus-mt-sv-en")
     self.yt = None
-  
+
   def __call__(self, link):
     if self.yt is None:
       self.yt = YouTube(link)
     path = self.yt.streams.filter(only_audio=True)[0].download(filename="tmp.mp4")
-
-    results = self.model(path)
-    return results["text"]
+    results = self.transcribe_model(path)
+    results = self.translate_model(results["text"])
+    return results[0]['translation_text']
 
   def populate_metadata(self, link):
     self.yt = YouTube(link)
