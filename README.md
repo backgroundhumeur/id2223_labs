@@ -64,13 +64,14 @@ model better generalise, but this would likely require longer training as well.
 
 The long training time could be reduced further by making use of bigger training
 and test batch sizes, but unfortunately the RAM of the GPUs collab provided
-couldn't allow for bigger batche sizes.
+couldn't allow for bigger batche sizes. Though by making use of different
+optimizers that don't use up as much GPU RAM as AdamW, like the 8_bit version or
+AdaGrad, we could have maybe been able to increase the batch size.
 
 The fp16 provides a nice boost in perfomances, but we didn't try the different
 optimizers level that could possibly increasing perfomances further using
 fp16_opt_level.
 
-The final optimization that can be used and that was implemented is to reduce the test set size so that less time is spent at every evaluation. This is dangerous though as we can't reduce its size too much for fear of underestimating the error on unseen data. But a 80/20 ratio seemed like a good compromise, and this allowed us to drive the total evaluation time down 1h(=15min*4).
 
 Another thing that can be mentioned is to change the pretrained model we use to
 an even more complex one, like whisper-medium. Since it has more neurons, we
@@ -84,6 +85,12 @@ training set. Initially we worked on the problem by reducing the size of the
 training instead of the test set, and this lead to worse WER rates. So it is
 clear that adding more data from other available data sources would be a good
 way to improve our model.
+
+We can see this improvement on the following figure:
+
+![Number of steps per Word Error Rate](https://raw.githubusercontent.com/backgroundhumeur/id2223_labs/main/lab2/assets/image.png)
+
+The other advantage of reducing the test set size was that less time was spent at every evaluation, meaning a faster training. This is dangerous though as we can't reduce its size too much for fear of underestimating the error on unseen data. But a 80/20 ratio seemed like a good compromise, and this allowed us to drive the total evaluation time down 1h(=15min*4).
 
 Unfortunately, it is both difficult to find and make usable more potential
 training data, since there are no seemingly easy sources online for Swedish
