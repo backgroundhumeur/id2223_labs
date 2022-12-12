@@ -37,7 +37,7 @@ def g():
     y_pred = model.predict(batch_data)
     # print(y_pred)
     passenger_survived = y_pred[y_pred.size-1]
-    img_url = "https://raw.githubusercontent.com/backgroundhumeur/id2223_labs/main/src/titanic/assets/titanic_" + str(passenger_survived) + ".jpg"
+    img_url = "https://raw.githubusercontent.com/backgroundhumeur/id2223_labs/main/lab1/titanic/assets/titanic_" + str(passenger_survived) + ".jpg"
     print("Passenger survival predicted: " + str(passenger_survived))
     img = Image.open(requests.get(img_url, stream=True).raw)            
     img.save("./latest_survival.jpg")
@@ -48,7 +48,7 @@ def g():
     df = titanic_fg.read()
     # print(df["variety"])
     label = round(df.iloc[-1]["survived"])
-    label_url = "https://raw.githubusercontent.com/backgroundhumeur/id2223_labs/main/src/titanic/assets/titanic_" + str(label) + ".jpg"
+    label_url = "https://raw.githubusercontent.com/backgroundhumeur/id2223_labs/main/lab1/titanic/assets/titanic_" + str(label) + ".jpg"
     print("Passenger survival actual: " + str(label))
     img = Image.open(requests.get(label_url, stream=True).raw)            
     img.save("./actual_survival.jpg")

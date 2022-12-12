@@ -143,7 +143,7 @@ The resulting huggingface spaces can be found at:
 
 ### 2. Titanic
 
-![Titanic sinking](https://raw.githubusercontent.com/backgroundhumeur/id2223_labs/main/src/titanic/assets/titanic_0.jpg)
+![Titanic sinking](https://raw.githubusercontent.com/backgroundhumeur/id2223_labs/main/lab1/titanic/assets/titanic_0.jpg)
 
 There are two applications for the Titanic dataset : one predicts if a passenger of
 the Titanic would have survived based on some parameters given through an
