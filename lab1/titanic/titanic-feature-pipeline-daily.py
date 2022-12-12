@@ -5,10 +5,10 @@ BACKFILL=False
 LOCAL=False
 
 if LOCAL == False:
-   stub = modal.Stub()
+   stub = modal.Stub("titanic_daily")
    image = modal.Image.debian_slim().pip_install(["hopsworks","joblib","seaborn","sklearn","dataframe-image"]) 
 
-   @stub.function(image=image, schedule=modal.Period(hours=6), secret=modal.Secret.from_name("my-custom-secret"))
+   @stub.function(image=image, schedule=modal.Period(hours=3), secret=modal.Secret.from_name("my-custom-secret"))
    def f():
        g()
 
@@ -153,5 +153,6 @@ if __name__ == "__main__":
     if LOCAL == True :
         g()
     else:
+        stub.deploy("titanic_daily")
         with stub.run():
             f()
