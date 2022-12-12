@@ -35,7 +35,7 @@ This was reasonable though, as it matched the size of the training set to a 80/2
 
 The training pipeline notebook was built in order to minimize the time spent not
 using the GPU. Using a separate feature pipeline, we were able to drive down the
-overhead time to around ~20mins for it to download the necessary feature dataset
+overhead time to around only ~5mins for it to download the necessary feature dataset
 used for the training.
 
 We then make use of the training's parameters in order to force a push for every
@@ -43,6 +43,8 @@ checkpoints(1 every 1000 steps) into the model's repo to retrain from the
 checkpoint in order of a Collab forceful disconnect.
 
 ### Possible improvements of the model
+
+[Here](https://huggingface.co/humeur/lab2_id2223) is our current fine-tuned model.
 
 * Model-centric approach
 
@@ -70,6 +72,11 @@ fp16_opt_level.
 
 The final optimization that can be used and that was implemented is to reduce the test set size so that less time is spent at every evaluation. This is dangerous though as we can't reduce its size too much for fear of underestimating the error on unseen data. But a 80/20 ratio seemed like a good compromise, and this allowed us to drive the total evaluation time down 1h(=15min*4).
 
+Another thing that can be mentioned is to change the pretrained model we use to
+an even more complex one, like whisper-medium. Since it has more neurons, we
+would expect better performances with the tradeoff of longer training times and
+more epochs needed to arrive at a stable configuration.
+
 * Data-centric approach
 
 The most obvious data-centric approach to improve the model is to have a greater
@@ -82,6 +89,11 @@ Unfortunately, it is both difficult to find and make usable more potential
 training data, since there are no seemingly easy sources online for Swedish
 audio. One could investigate government agencies especially of the European
 Union to maybe find good quality recordings usable for training.
+
+Here is one of those EU dataset: https://live.european-language-grid.eu/catalogue/corpus/1594 
+
+We can also cite Google's [FLEURS](https://huggingface.co/datasets/google/fleurs/viewer/sv_se/train) dataset that contains many labeled sound files
+for training including a sv-SE variant.
 
 The second problem is that the training data needs to be saved on cloud systems
 and the current data already went over 15gb so any more would require to use
