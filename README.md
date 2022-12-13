@@ -13,7 +13,7 @@ spaces gradio app at [the following url](https://huggingface.co/spaces/humeur/Sw
 
 Since the gradio app is run on the basic CPU provided by huggingface, it takes
 a very long time to run one inference of the model even for small inputs(around
-10mins). We can recommend some youtube videos to try the app with like [this
+2mins). We can recommend some youtube videos to try the app with like [this
 recent news report](https://www.youtube.com/watch?v=34QNxHTOsQU) or [an even shorter one](https://www.youtube.com/watch?v=AzlipxrzMe4).
 
 ### Explanation of the pipeline
